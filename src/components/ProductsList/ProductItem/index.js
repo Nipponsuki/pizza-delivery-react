@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Button from 'components/common/Button';
+import ProductItemModal from 'components/ProductItemModal';
 
 const ProductItemContainer = styled.div`
   width: 250px;
@@ -21,9 +22,6 @@ const ProductItemContainer = styled.div`
   &:hover {
     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
       0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 1px 8px 0 rgba(0, 0, 0, 0.2);
-  }
-  button {
-    margin: auto auto 10px auto;
   }
 `;
 
@@ -63,16 +61,32 @@ const ProductIngredients = styled.p`
 `;
 
 const ProductItem = ({ item }) => {
+  const [isModalShown, setIsModalShown] = React.useState(false);
+  const showModal = () => setIsModalShown(true);
+  const closeModal = () => {
+    setIsModalShown(false);
+  };
+
+  const addToCart = (e) => {
+    e.stopPropagation();
+  };
   return (
-    <ProductItemContainer>
-      <ProductImage>
-        <img src={item.image_url} alt={item.name} />
-      </ProductImage>
-      <ProductName>{item.name}</ProductName>
-      <ProductPrice>{item.price} $</ProductPrice>
-      <ProductIngredients>{item.ingredients}</ProductIngredients>
-      <Button text="Add to cart" />
-    </ProductItemContainer>
+    <>
+      {isModalShown && <ProductItemModal item={item} closeModal={closeModal} />}
+      <ProductItemContainer onClick={showModal}>
+        <ProductImage>
+          <img src={item.image_url} alt={item.name} />
+        </ProductImage>
+        <ProductName>{item.name}</ProductName>
+        <ProductPrice>{item.price} $</ProductPrice>
+        <ProductIngredients>{item.ingredients}</ProductIngredients>
+        <Button
+          text="Add to cart"
+          onClick={addToCart}
+          margin="auto auto 10px auto;"
+        />
+      </ProductItemContainer>
+    </>
   );
 };
 

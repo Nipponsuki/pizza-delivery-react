@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-  width: 100px;
+  width: ${(props) => (props.width ? props.width : '100px')};
   height: 40px;
   display: flex;
   align-items: center;
@@ -17,6 +17,7 @@ const StyledButton = styled.button`
   transition: all 0.3s ease;
   border: 2px solid ${({ theme }) => theme.colors.purpledeep};
   cursor: pointer;
+  margin: ${(props) => props.margin};
 
   &:hover {
     background: ${({ theme }) => theme.colors.white};
@@ -29,8 +30,12 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({ text, onClick }) => {
-  return <StyledButton onClick={onClick}>{text}</StyledButton>;
+const Button = ({ text, onClick, width, margin }) => {
+  return (
+    <StyledButton onClick={onClick} width={width} margin={margin}>
+      {text}
+    </StyledButton>
+  );
 };
 
 export default Button;

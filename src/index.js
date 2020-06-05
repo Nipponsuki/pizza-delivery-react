@@ -14,15 +14,13 @@ import App from './routes';
 const history = createBrowserHistory();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ApolloProvider client={client}>
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <App history={history} />
-        </ThemeProvider>
-      </Provider>
-    </ApolloProvider>
-  </React.StrictMode>,
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <App history={history} />
+      </ThemeProvider>
+    </Provider>
+  </ApolloProvider>,
   document.getElementById('root')
 );
