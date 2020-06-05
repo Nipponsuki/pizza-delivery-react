@@ -4,9 +4,8 @@ import 'assets/fonts/_fonts.css';
 const GlobalStyle = createGlobalStyle`
   body {
     box-sizing: border-box;
-    font-family: 'Roboto';
-		margin: 0 auto;
-		background: red;
+    font-family: ${(props) => props.theme.fonts.primary};
+    margin: 0 auto;
   }
   
   *::after,
