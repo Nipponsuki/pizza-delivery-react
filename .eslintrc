@@ -17,7 +17,8 @@
     "import/no-extraneous-dependencies": "off",
     "no-param-reassign": 0,
     "no-use-before-define": "off",
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "no-return-assign": "off"
   },
   "globals": {
     "window": true,

@@ -5,6 +5,7 @@ import Logo from 'components/Logo';
 import CartIcon from 'components/CartIcon';
 import Flexbox from 'components/common/Flexbox';
 import OrderAmount from 'components/OrderAmount';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -30,9 +31,13 @@ const Header = () => {
   return (
     <StyledHeader>
       <HeaderWrapper>
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
         <Flexbox>
-          <CartIcon />
+          <Link to="/cart">
+            <CartIcon />
+          </Link>
           <OrderAmount />
         </Flexbox>
       </HeaderWrapper>
