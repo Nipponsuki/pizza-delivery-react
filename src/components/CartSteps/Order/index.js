@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { ReactComponent as CloseIcon } from 'assets/icons/close-icon.svg';
+import { useDispatch } from 'react-redux';
+import { addItem, removeItem, removeItemFromCart } from 'redux/cartStore';
 
 const OrderContainer = styled.div`
   width: 100%;
@@ -36,7 +38,7 @@ const OrderImage = styled.div`
 
 const OrderName = styled.span`
   font-family: ${({ theme }) => theme.fonts.secondary};
-  font-size: 16px;
+  font-size: 20px;
   line-height: 20px;
 `;
 
@@ -74,20 +76,33 @@ const OrderAmountAction = styled.div`
 `;
 
 const Order = ({ item }) => {
+  const dispatch = useDispatch();
+
   return (
-    <OrderContainer>
-      <OrderImage>
-        <img src={item.image_url} alt={item.name} />
-      </OrderImage>
-      <OrderName>{item.name}</OrderName>
-      <OrderPrice>{item.price} $</OrderPrice>
-      <OrderAmount>
-        <OrderAmountAction>+</OrderAmountAction>
-        <span>1</span>
-        <OrderAmountAction>-</OrderAmountAction>
-      </OrderAmount>
-      <CloseIcon className="remove-order-icon" />
-    </OrderContainer>
+    <>
+      {item && (
+        <OrderContainer>
+          <OrderImage>
+            <img src={item.image_url} alt={item.name} />
+          </OrderImage>
+          <OrderName>{item.name}</OrderName>
+          <OrderPrice>{(item.price * item.quantity).toFixed(2)} $</OrderPrice>
+          <OrderAmount>
+            <OrderAmountAction onClick={() => dispatch(removeItem(item))}>
+              -
+            </OrderAmountAction>
+            <span>{item.quantity}</span>
+            <OrderAmountAction onClick={() => dispatch(addItem(item))}>
+              +
+            </OrderAmountAction>
+          </OrderAmount>
+          <CloseIcon
+            className="remove-order-icon"
+            onClick={() => dispatch(removeItemFromCart(item))}
+          />
+        </OrderContainer>
+      )}
+    </>
   );
 };
 

@@ -14,6 +14,8 @@ const Flexbox = styled.div`
   z-index: ${(props) => props.zIndex};
   position: ${(props) => props.position || 'unset'};
   padding: ${(props) => props.padding};
+  left: ${(props) => props.left};
+  bottom: ${(props) => props.bottom};
 `;
 
 export default Flexbox;

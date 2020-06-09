@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import CartSteps from 'components/CartSteps/inidex';
+import CartSteps from 'components/CartSteps';
 
 const PageWrapper = styled.div`
   max-width: 1080px;

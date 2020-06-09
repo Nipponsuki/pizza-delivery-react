@@ -8,20 +8,24 @@ const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
   font-family: ${({ theme }) => theme.fonts.secondary};
-  color: ${({ theme }) => theme.colors.white};
+  color: ${(props) =>
+    props.invert ? props.theme.colors.purpledeep : props.theme.colors.white};
   font-size: 14px;
   line-height: 18px;
   border-radius: 5px;
   text-transform: uppercase;
-  background: ${({ theme }) => theme.colors.purpledeep};
+  background: ${(props) =>
+    props.invert ? props.theme.colors.white : props.theme.colors.purpledeep};
   transition: all 0.3s ease;
   border: 2px solid ${({ theme }) => theme.colors.purpledeep};
   cursor: pointer;
   margin: ${(props) => props.margin};
 
   &:hover {
-    background: ${({ theme }) => theme.colors.white};
-    color: ${({ theme }) => theme.colors.purpledeep};
+    background: ${(props) =>
+      props.invert ? props.theme.colors.purpledeep : props.theme.colors.white};
+    color: ${(props) =>
+      props.invert ? props.theme.colors.white : props.theme.colors.purpledeep};
     outline: none;
   }
 
@@ -30,9 +34,14 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({ text, onClick, width, margin }) => {
+const Button = ({ text, onClick, width, margin, invert }) => {
   return (
-    <StyledButton onClick={onClick} width={width} margin={margin}>
+    <StyledButton
+      onClick={onClick}
+      width={width}
+      margin={margin}
+      invert={invert}
+    >
       {text}
     </StyledButton>
   );

@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+
+import { selectCartTotal } from 'redux/cartStore';
 
 const Amount = styled.span`
   font-size: 20px;
@@ -10,7 +13,8 @@ const Amount = styled.span`
 `;
 
 const OrderAmount = () => {
-  return <Amount>849 $</Amount>;
+  const totalAmount = useSelector(selectCartTotal);
+  return <>{totalAmount > 0 && <Amount>{totalAmount.toFixed(2)} $</Amount>}</>;
 };
 
 export default OrderAmount;

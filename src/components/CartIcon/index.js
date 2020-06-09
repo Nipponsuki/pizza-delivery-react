@@ -2,6 +2,8 @@ import React from 'react';
 
 import { ReactComponent as Cart } from 'assets/icons/ic-cart.svg';
 import styled from 'styled-components';
+import { selectCartItemsCount } from 'redux/cartStore';
+import { useSelector } from 'react-redux';
 
 const CartIconWrapper = styled.div`
   display: flex;
@@ -33,11 +35,14 @@ const CartAmount = styled.div`
 `;
 
 const CartIcon = () => {
+  const count = useSelector(selectCartItemsCount);
   return (
     <CartIconWrapper>
-      <CartAmount>
-        <span>10</span>
-      </CartAmount>
+      {count > 0 && (
+        <CartAmount>
+          <span>{count}</span>
+        </CartAmount>
+      )}
       <Cart />
     </CartIconWrapper>
   );

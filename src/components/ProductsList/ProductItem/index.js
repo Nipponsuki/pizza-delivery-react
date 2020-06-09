@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
 import Button from 'components/common/Button';
 import ProductItemModal from 'components/ProductItemModal';
+import { addItem } from 'redux/cartStore';
 
 const ProductItemContainer = styled.div`
   width: 250px;
@@ -62,6 +64,7 @@ const ProductIngredients = styled.p`
 
 const ProductItem = ({ item }) => {
   const [isModalShown, setIsModalShown] = React.useState(false);
+  const dispatch = useDispatch();
   const showModal = () => setIsModalShown(true);
   const closeModal = () => {
     setIsModalShown(false);
@@ -69,6 +72,7 @@ const ProductItem = ({ item }) => {
 
   const addToCart = (e) => {
     e.stopPropagation();
+    dispatch(addItem(item));
   };
   return (
     <>

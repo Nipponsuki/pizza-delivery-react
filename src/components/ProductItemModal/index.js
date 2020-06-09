@@ -7,6 +7,8 @@ import Flexbox from 'components/common/Flexbox';
 import Button from 'components/common/Button';
 import { useLockBodyScroll } from 'hooks/useLockBodyScroll';
 import { useOutsideClick } from 'hooks/useOutsideClick';
+import { useDispatch } from 'react-redux';
+import { addItem } from 'redux/cartStore';
 
 const ProductItemImage = styled.div`
   img {
@@ -72,6 +74,7 @@ const ItemIng = styled.p`
 
 const ProductItemModal = ({ item, closeModal }) => {
   useLockBodyScroll();
+  const dispath = useDispatch();
   const ref = React.useRef();
   useOutsideClick(ref, () => {
     closeModal();
@@ -86,7 +89,12 @@ const ProductItemModal = ({ item, closeModal }) => {
           </ProductItemImage>
           <Flexbox direction="column" padding="20px">
             <ProductName>{item.name}</ProductName>
-            <Button text="Add to cart" width="140px" margin="10px 0 10px 0" />
+            <Button
+              text="Add to cart"
+              width="140px"
+              margin="10px 0 10px 0"
+              onClick={() => dispath(addItem(item))}
+            />
             <ProductItemDesc>{item.desc}</ProductItemDesc>
           </Flexbox>
         </Flexbox>
