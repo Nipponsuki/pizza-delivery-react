@@ -30,15 +30,14 @@ const Label = styled.span`
   margin: 0 0 10px 10px;
 `;
 
-const Input = ({ onChange, value, name, label, placeholder, type }) => {
+const Input = ({ name, label, placeholder, type, register }) => {
   return (
     <Flexbox direction="column" margin="0 0 15px 0">
       <Label>{label}</Label>
       <StyledInput
         name={name}
         placeholder={placeholder}
-        value={value}
-        onChange={onChange}
+        ref={register}
         type={type}
       />
     </Flexbox>

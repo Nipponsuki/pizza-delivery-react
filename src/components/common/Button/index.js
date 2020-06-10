@@ -34,13 +34,14 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({ text, onClick, width, margin, invert }) => {
+const Button = ({ text, onClick, width, margin, invert, type }) => {
   return (
     <StyledButton
       onClick={onClick}
       width={width}
       margin={margin}
       invert={invert}
+      type={type}
     >
       {text}
     </StyledButton>

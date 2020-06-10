@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Flexbox from 'components/common/Flexbox';
 import Button from 'components/common/Button';
-import { cartSelector, selectCartTotal, cleanCart } from 'redux/cartStore';
+import { cartSelector, selectCartTotal } from 'redux/cartStore';
 import StepsIndigator from './StepsIndigator';
-import Order from './Order';
 import OrderForm from './OrderForm';
+import OrdersList from './OrdersList';
+import Message from './Message';
 
 const STEPS = {
   1: { step: 1, width: '33.3%', text: 'My order' },
@@ -34,12 +35,12 @@ const CartWrapper = styled.div`
     font-size: 24px;
   }
 `;
+
 const Text = styled.p``;
 
 const CartSteps = () => {
-  const [currentStep, setCurrentStep] = React.useState(STEPS[1].step);
+  const [currentStep, setCurrentStep] = React.useState(STEPS[2].step);
   const { items } = useSelector(cartSelector);
-  const dispatch = useDispatch();
   const totalAmount = useSelector(selectCartTotal);
 
   const toNextStep = () => {
@@ -58,42 +59,13 @@ const CartSteps = () => {
   const renderSteps = () => {
     switch (currentStep) {
       case 1:
-        return (
-          <Flexbox width="100%" direction="column">
-            {items && items.map((el) => <Order item={el} key={el.id} />)}
-            <Button
-              width="200px"
-              text="Next"
-              onClick={() => toNextStep()}
-              margin="20px 0 0 0"
-            />
-          </Flexbox>
-        );
+        return <OrdersList items={items} toNextStep={toNextStep} />;
       case 2:
         return <OrderForm toPrevStep={toPrevStep} toNextStep={toNextStep} />;
-
       case 3:
-        return (
-          <Flexbox direction="column" margin="0 auto" align="center">
-            <Text>
-              Thank you for order! Our manager will contact you about delivery
-              details.
-            </Text>
-            <Flexbox justify="space-between" width="100%">
-              <Link to="/">
-                <Button width="200px" text="Browse menu" />
-              </Link>
-              <Button
-                width="200px"
-                text="Clean cart"
-                onClick={() => dispatch(cleanCart())}
-                invert
-              />
-            </Flexbox>
-          </Flexbox>
-        );
+        return <Message setCurrentStep={setCurrentStep} />;
       default:
-        return <h1>First step</h1>;
+        return <OrdersList items={items} toNextStep={toNextStep} />;
     }
   };
   return (
