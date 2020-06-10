@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import { selectCartTotal } from 'redux/cartStore';
+import { DELIVERY_COST } from 'components/CartSteps';
 
 const Amount = styled.span`
   font-size: 20px;
@@ -14,7 +15,13 @@ const Amount = styled.span`
 
 const OrderAmount = () => {
   const totalAmount = useSelector(selectCartTotal);
-  return <>{totalAmount > 0 && <Amount>{totalAmount.toFixed(2)} $</Amount>}</>;
+  return (
+    <>
+      {totalAmount > 0 && (
+        <Amount>{(totalAmount + DELIVERY_COST).toFixed(2)} $</Amount>
+      )}
+    </>
+  );
 };
 
 export default OrderAmount;

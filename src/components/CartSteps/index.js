@@ -17,6 +17,10 @@ const STEPS = {
   3: { step: 3, width: '100%', text: 'Delivery info' },
 };
 
+export const DELIVERY_COST = 1.99;
+
+const EURO_EXCHANGE_RATE = 0.88;
+
 const STEPS_AMOUNT = 3;
 
 const CartWrapper = styled.div`
@@ -39,7 +43,7 @@ const CartWrapper = styled.div`
 const Text = styled.p``;
 
 const CartSteps = () => {
-  const [currentStep, setCurrentStep] = React.useState(STEPS[2].step);
+  const [currentStep, setCurrentStep] = React.useState(STEPS[1].step);
   const { items } = useSelector(cartSelector);
   const totalAmount = useSelector(selectCartTotal);
 
@@ -82,9 +86,24 @@ const CartSteps = () => {
           <StepsIndigator steps={STEPS} currentStep={currentStep} />
           {renderSteps()}
           {currentStep !== STEPS_AMOUNT && (
-            <Flexbox width="100%" justify="flex-end" margin="20px 0 0 0">
+            <Flexbox
+              width="100%"
+              justify="flex-end"
+              margin="20px 0 0 0"
+              direction="column"
+              align="flex-end"
+            >
+              <span className="delivery-price">
+                Delivery: <span>${DELIVERY_COST}</span>
+              </span>
               <span className="total-price">
-                Total: <span>${totalAmount.toFixed(2)}</span>
+                Total:{' '}
+                <span>
+                  ${(totalAmount + DELIVERY_COST).toFixed(2)} / €
+                  {((totalAmount + DELIVERY_COST) * EURO_EXCHANGE_RATE).toFixed(
+                    2
+                  )}{' '}
+                </span>
               </span>
             </Flexbox>
           )}
